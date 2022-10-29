@@ -75,23 +75,28 @@ while on == 1:
         high = open("highscore.txt", "rt")
         last = open("lastwin.txt", "rt")
         user = open("highuser.txt", "rt")
+        count = open("count.txt", "rt")
         print("Last big win was: ", last.read())
         last.close()
         print("High score is:    ", high.read(), "by", user.read())
         high.close()
         plat = open("plat.txt", "rt")
         platform = plat.read()
+        count.close
     except:
         high = open("highscore.txt", "wt")
         last = open("lastwin.txt", "wt")
         user = open("highuser.txt", "wt")
+        count = open("count.txt", "wt")
         print("This machine is fresh!")
         high.write("0")
         last.write("0")
         user.write("0")
+        count.write("0")
         high.close()
         last.close()
         user.close()
+        count.close
         platform = input("Please Enter 'c' for CMD terminal (Windows), and use 'u' for unix terminal(MacOS or Linux) ")
         plat = open("plat.txt", "wt")
         plat.write(platform)
@@ -179,6 +184,18 @@ while on == 1:
         var3 = randint(1, 9)
         print("You roll:", var1, var2, var3)
         payout = 0
+        count = open("count.txt", "rt")
+        countmsg = count.read()
+        count.close()
+        countint = int(countmsg)
+        countint += 1
+        countmsg = str(countint)
+        count = open("count.txt", "wt")
+        count.write(countmsg)
+        count.close()
+
+
+
 
         # Assign payouts
         if var1 == 3 and var2 == 4 and var3 == 3:
@@ -189,6 +206,10 @@ while on == 1:
             payout = 1000
         elif var1 == 7 and var2 == 7 and var3 == 7:
             payout = 2000
+        elif var1 == 3 and var2 == 1 and var3 == 4:
+            payout = 1000
+        elif var1 == var2 == var3:
+            payout = 400
         elif var1 == var2:
             payout = 20
         elif var2 == var3:
@@ -208,7 +229,7 @@ while on == 1:
             print("Multiplied score is", payout)
 
         # Set balance to user
-        print("Balance is:", balance)
+        print("Balance was:", balance)
         newbal = balance + payout - 10*multi
         print("New balance is:", newbal)
         userscore = open(username+".txt", "wt")
